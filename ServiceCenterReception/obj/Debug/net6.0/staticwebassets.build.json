@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "wRpebJhEeXvpBj2tfVFccn/ByIWcxuPrvLT4yNnT1bc=",
+  "Source": "ServiceCenterReception",
+  "BasePath": "_content/ServiceCenterReception",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

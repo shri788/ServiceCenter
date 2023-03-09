@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceCenterReception", "ServiceCenterReception\ServiceCenterReception.csproj", "{25979596-8D16-4BED-87C4-62EBF063CE88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestServiceCenter", "UnitTestServiceCenter\UnitTestServiceCenter.csproj", "{489504BE-57F3-4D95-B61A-4BE36DA160C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25979596-8D16-4BED-87C4-62EBF063CE88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25979596-8D16-4BED-87C4-62EBF063CE88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25979596-8D16-4BED-87C4-62EBF063CE88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25979596-8D16-4BED-87C4-62EBF063CE88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{489504BE-57F3-4D95-B61A-4BE36DA160C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{489504BE-57F3-4D95-B61A-4BE36DA160C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{489504BE-57F3-4D95-B61A-4BE36DA160C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{489504BE-57F3-4D95-B61A-4BE36DA160C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0842CCD-83E3-4CEE-ADFF-FA462938B5F7}
+	EndGlobalSection
+EndGlobal
