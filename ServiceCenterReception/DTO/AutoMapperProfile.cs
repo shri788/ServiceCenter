@@ -11,6 +11,10 @@ namespace ServiceCenterReception.DTO
 
             CreateMap<CustomerProfile, CustomerVehicleServiceDTO>();
 
+            CreateMap<VehicleServiceDetail, VehicleServiceDetailDTO>();
+
+            CreateMap<VehicleDetails, VehicleDetailsDTO>();
+
         }
     }
 }

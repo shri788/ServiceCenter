@@ -32,14 +32,37 @@ namespace ServiceCenterReception.Repository
             }
         }
 
-        public async Task<CustomerVehicleServiceDTO> getCustomerByMobilrNo(long mobileNo)
+        public async Task<CustomerProfile> updateCustomer(CustomerProfile customer)
+        {
+            try
+            {
+                context.customerProfiles.Update(customer);
+                await context.SaveChangesAsync();
+                return customer;
+            } catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<ServiceDTO> getCustomerByMobilrNo(long mobileNo)
         {
             try
             {
                 var result = await context.customerProfiles.Where(x =>
                     x.mobileNumber == mobileNo)
                     .FirstOrDefaultAsync();
-                var dto = mapper.Map<CustomerVehicleServiceDTO>(result);
+                ServiceDTO dto = new ServiceDTO();
+                if (result != null)
+                {
+                    dto.CustomerProfile = result;
+                    var serviceDetails = await context.vehicleServiceDetails.Where(
+                            x => x.customerId == result.customerId)
+                            .Include(x => x.VehicleServiceRecieveDelivery)
+                            .Include(x => x.VehicleDetails)
+                            .ToListAsync();
+                    dto.vehicleServiceDetails = mapper.Map<List<VehicleServiceDetailDTO>>(serviceDetails);
+                }
                 return dto;
             }
             catch (Exception ex)

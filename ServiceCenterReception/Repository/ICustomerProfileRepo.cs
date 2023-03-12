@@ -7,6 +7,8 @@ namespace ServiceCenterReception.Repository
     {
         public Task<CustomerProfile> addCustomer(CustomerProfile customer);
 
-        Task<CustomerVehicleServiceDTO> getCustomerByMobilrNo(long mobileNo);
+        Task<CustomerProfile> updateCustomer(CustomerProfile customer);
+
+        Task<ServiceDTO> getCustomerByMobilrNo(long mobileNo);
     }
 }

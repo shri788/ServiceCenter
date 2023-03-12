@@ -30,9 +30,16 @@ namespace ServiceCenterReception.Service
             generalResponseDTO resObj = new generalResponseDTO();
             var vehicleDetails = customer.VehicleServiceDetail?.VehicleDetails;
             var vehicleServiceDetail = customer.VehicleServiceDetail;
-            var customerProfile = mapper.Map<CustomerProfile>(customer);
-            var customerCreatedUpdated = await customerRepo.addCustomer(customerProfile);
             long vehicleId = 0;
+            var customerProfile = mapper.Map<CustomerProfile>(customer);
+            var customerCreatedUpdated = new CustomerProfile();
+            if(customerProfile.customerId > 0)
+            {
+                customerCreatedUpdated = await customerRepo.updateCustomer(customerProfile);
+            } else
+            {
+                customerCreatedUpdated = await customerRepo.addCustomer(customerProfile);
+            }
             
             if (vehicleDetails != null && customerCreatedUpdated != null && customerCreatedUpdated.customerId != 0)
             {
@@ -60,7 +67,7 @@ namespace ServiceCenterReception.Service
             return resObj;
         }
 
-        public async Task<CustomerVehicleServiceDTO> getCustomerByMobilrNo(long mobileNo)
+        public async Task<ServiceDTO> getCustomerByMobilrNo(long mobileNo)
         {
             var result = await customerRepo.getCustomerByMobilrNo(mobileNo);
             return result;

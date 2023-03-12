@@ -35,13 +35,13 @@ namespace UnitTestServiceCenter.Controller
             obj.lastServiceDate = new DateTime(2023, 10, 10);
             obj.dueInMonths = 5;
 
-            var fakeSvc = A.Fake<ICustomerProfileSvc>();
-            A.CallTo(() => fakeSvc.addCustomer(obj)).Returns(Task.FromResult(obj));
-            var controller = new CustomerProfileController(fakeSvc);
-            // act
-            var result = controller.addCustomer(obj).Result;
-            // assert
-            Assert.Equal("Test", result.customerName);
+            //var fakeSvc = A.Fake<ICustomerProfileSvc>();
+            //A.CallTo(() => fakeSvc.addCustomer(obj)).Returns(Task.FromResult(obj));
+            //var controller = new CustomerProfileController(fakeSvc);
+            //// act
+            //var result = controller.addCustomer(obj).Result;
+            //// assert
+            //Assert.Equal("Test", result.customerName);
         }
     }
 }

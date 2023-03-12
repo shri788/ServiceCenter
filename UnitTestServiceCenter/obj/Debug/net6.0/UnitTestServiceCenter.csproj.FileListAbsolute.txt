@@ -126,3 +126,5 @@ D:\Repositories\Vipul\ServiceCenterReception BE\UnitTestServiceCenter\bin\Debug\
 D:\Repositories\Vipul\ServiceCenterReception BE\UnitTestServiceCenter\bin\Debug\net6.0\ServiceCenterReception.dll
 D:\Repositories\Vipul\ServiceCenterReception BE\UnitTestServiceCenter\bin\Debug\net6.0\ServiceCenterReception.pdb
 D:\Repositories\Vipul\ServiceCenterReception BE\UnitTestServiceCenter\bin\Debug\net6.0\FakeItEasy.dll
+D:\Repositories\Vipul\ServiceCenterReception BE\UnitTestServiceCenter\bin\Debug\net6.0\AutoMapper.dll
+D:\Repositories\Vipul\ServiceCenterReception BE\UnitTestServiceCenter\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

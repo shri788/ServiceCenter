@@ -15,5 +15,10 @@ namespace ServiceCenterReception.Data
             public DbSet<VehicleServiceRecieveDelivery> vehicleServiceRecieveDeliveries { get; set; } = null!;
 
             public DbSet<VehicleServiceDetail> vehicleServiceDetails { get; set; } = null!;
+
+            public DbSet<VehicleServiceTaskCompletedList> vehicleServiceTaskCompletedLists { get; set; } = null!;
+            
+            public DbSet<ServiceTasksMaster> serviceTasksMasters { get; set; } = null!;
+
     }
 } 
