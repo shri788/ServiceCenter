@@ -12,8 +12,12 @@ builder.Services.AddDbContext<serviceCenterDbContext>(option =>
 
 // startup services starts here
 //builder.Services.AddHostedService<RecurringMethodsService>();
+builder.Services.AddScoped<IVehicleServiceDetailRepo, VehicleServiceDetailRepo>();
+builder.Services.AddScoped<IVehicleDetailsRepo, VehicleDetailsRepo>();
 builder.Services.AddScoped<ICustomerProfileRepo, CustomerProfileRepo>();
 builder.Services.AddScoped<ICustomerProfileSvc, CustomerProfileSvc>();
+
+builder.Services.AddAutoMapper(typeof(Program));
 // startup services ends here
 
 builder.Services.AddSwaggerGen();

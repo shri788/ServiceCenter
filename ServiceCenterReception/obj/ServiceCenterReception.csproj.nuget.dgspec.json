@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repositories\\Vipul\\ServiceCenterReception\\ServiceCenterReception\\ServiceCenterReception.csproj": {}
+    "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj": {}
   },
   "projects": {
-    "D:\\Repositories\\Vipul\\ServiceCenterReception\\ServiceCenterReception\\ServiceCenterReception.csproj": {
+    "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repositories\\Vipul\\ServiceCenterReception\\ServiceCenterReception\\ServiceCenterReception.csproj",
+        "projectUniqueName": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
         "projectName": "ServiceCenterReception",
-        "projectPath": "D:\\Repositories\\Vipul\\ServiceCenterReception\\ServiceCenterReception\\ServiceCenterReception.csproj",
+        "projectPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repositories\\Vipul\\ServiceCenterReception\\ServiceCenterReception\\obj\\",
+        "outputPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,7 +21,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,6 +39,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.3, )"

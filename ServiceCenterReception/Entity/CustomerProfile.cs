@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ServiceCenterReception.Entity
 {
@@ -34,12 +35,6 @@ namespace ServiceCenterReception.Entity
         public DateTime lastServiceDate { get; set;}
 
         public int dueInMonths { get; set; }
-
-        //public CustomerProfile()
-        //{
-        //    DOB = new DateTime(1970, 1, 1);
-        //    DOM = new DateTime(1970, 1, 1);
-        //}
 
     }
 }

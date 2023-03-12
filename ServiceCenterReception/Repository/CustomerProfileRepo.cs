@@ -1,4 +1,7 @@
-﻿using ServiceCenterReception.Data;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ServiceCenterReception.Data;
+using ServiceCenterReception.DTO;
 using ServiceCenterReception.Entity;
 
 namespace ServiceCenterReception.Repository
@@ -7,16 +10,42 @@ namespace ServiceCenterReception.Repository
     {
         private readonly serviceCenterDbContext context;
 
-        public CustomerProfileRepo(serviceCenterDbContext context)
+        private readonly IMapper mapper;
+
+        public CustomerProfileRepo(serviceCenterDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }   
 
         public async Task<CustomerProfile> addCustomer(CustomerProfile customer)
         {
-            context.customerProfiles.Add(customer);
-            await context.SaveChangesAsync();
-            return customer;
+            try
+            {
+                context.customerProfiles.Add(customer);
+                await context.SaveChangesAsync();
+                return customer;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<CustomerVehicleServiceDTO> getCustomerByMobilrNo(long mobileNo)
+        {
+            try
+            {
+                var result = await context.customerProfiles.Where(x =>
+                    x.mobileNumber == mobileNo)
+                    .FirstOrDefaultAsync();
+                var dto = mapper.Map<CustomerVehicleServiceDTO>(result);
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

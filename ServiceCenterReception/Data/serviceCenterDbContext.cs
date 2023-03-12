@@ -9,5 +9,11 @@ namespace ServiceCenterReception.Data
             : base(options) { }
 
             public DbSet<CustomerProfile> customerProfiles { get; set; } = null!;
+
+            public DbSet<VehicleDetails> vehicleDetails { get; set; } = null!;
+
+            public DbSet<VehicleServiceRecieveDelivery> vehicleServiceRecieveDeliveries { get; set; } = null!;
+
+            public DbSet<VehicleServiceDetail> vehicleServiceDetails { get; set; } = null!;
     }
-}
+} 

@@ -66,6 +66,115 @@ namespace ServiceCenterReception.Migrations
 
                     b.ToTable("customerProfiles");
                 });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleDetails", b =>
+                {
+                    b.Property<long>("vehicleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("vehicleId"));
+
+                    b.Property<long>("customerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("vehicleNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("vehicleType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("vehicleId");
+
+                    b.HasIndex("customerId");
+
+                    b.ToTable("vehicleDetails");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleServiceDetail", b =>
+                {
+                    b.Property<long>("vehicleServiceDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("vehicleServiceDetailId"));
+
+                    b.Property<long?>("VehicleServiceRecieveDeliveryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("customerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("vehicleId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("vehicleServiceDetailId");
+
+                    b.HasIndex("VehicleServiceRecieveDeliveryId");
+
+                    b.HasIndex("customerId");
+
+                    b.HasIndex("vehicleId");
+
+                    b.ToTable("vehicleServiceDetails");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleServiceRecieveDelivery", b =>
+                {
+                    b.Property<long>("VehicleServiceRecieveDeliveryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("VehicleServiceRecieveDeliveryId"));
+
+                    b.Property<DateTime>("vehicleDeliveryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("vehicleReceiveDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("VehicleServiceRecieveDeliveryId");
+
+                    b.ToTable("vehicleServiceRecieveDeliveries");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleDetails", b =>
+                {
+                    b.HasOne("ServiceCenterReception.Entity.CustomerProfile", "CustomerProfile")
+                        .WithMany()
+                        .HasForeignKey("customerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerProfile");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleServiceDetail", b =>
+                {
+                    b.HasOne("ServiceCenterReception.Entity.VehicleServiceRecieveDelivery", "VehicleServiceRecieveDelivery")
+                        .WithMany()
+                        .HasForeignKey("VehicleServiceRecieveDeliveryId");
+
+                    b.HasOne("ServiceCenterReception.Entity.CustomerProfile", "CustomerProfile")
+                        .WithMany()
+                        .HasForeignKey("customerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ServiceCenterReception.Entity.VehicleDetails", "VehicleDetails")
+                        .WithMany()
+                        .HasForeignKey("vehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerProfile");
+
+                    b.Navigation("VehicleDetails");
+
+                    b.Navigation("VehicleServiceRecieveDelivery");
+                });
 #pragma warning restore 612, 618
         }
     }

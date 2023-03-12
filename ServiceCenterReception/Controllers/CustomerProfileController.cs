@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ServiceCenterReception.DTO;
 using ServiceCenterReception.Entity;
 using ServiceCenterReception.Service;
 
@@ -16,9 +17,16 @@ namespace ServiceCenterReception.Controllers
         }
 
         [HttpPost]
-        public async Task<CustomerProfile> addCustomer(CustomerProfile customer)
+        public async Task<generalResponseDTO> addCustomer(CustomerVehicleServiceDTO customer)
         {
             return await customerSvc.addCustomer(customer);
+        }
+
+        [HttpGet]
+        [Route("getByMobileNo/{mobileNo}")]
+        public async Task<CustomerVehicleServiceDTO> getCustomerByMobileNo(long mobileNo)
+        {
+            return await customerSvc.getCustomerByMobilrNo(mobileNo);
         }
     }
 }
