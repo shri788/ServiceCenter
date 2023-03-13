@@ -13,5 +13,7 @@ namespace ServiceCenterReception.DTO
         public virtual VehicleDetailsDTO? VehicleDetails { get; set; }
 
         public VehicleServiceRecieveDelivery? VehicleServiceRecieveDelivery { get; set; }
+
+        public List<VehicleServiceTaskCompletedListDTO>? VehicleServiceTaskCompletedLists { get; set; }
     }
 }

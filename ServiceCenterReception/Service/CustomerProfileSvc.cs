@@ -14,15 +14,19 @@ namespace ServiceCenterReception.Service
 
         private readonly IVehicleServiceDetailRepo serviceDetailRepo;
 
+        private readonly IVehicleServiceTaskRepo taskRepo;
+
         private readonly IMapper mapper;
 
         public CustomerProfileSvc(ICustomerProfileRepo customerRepo, IMapper mapper,
-            IVehicleDetailsRepo vehicleDetailsRepo, IVehicleServiceDetailRepo serviceDetailRepo)
+            IVehicleDetailsRepo vehicleDetailsRepo, IVehicleServiceDetailRepo serviceDetailRepo,
+            IVehicleServiceTaskRepo taskRepo)
         {
             this.customerRepo = customerRepo;
             this.mapper = mapper;
             this.vehicleDetailsRepo = vehicleDetailsRepo;
             this.serviceDetailRepo = serviceDetailRepo;
+            this.taskRepo = taskRepo;
         }
 
         public async Task<generalResponseDTO> addCustomer(CustomerVehicleServiceDTO customer)
@@ -67,9 +71,29 @@ namespace ServiceCenterReception.Service
             return resObj;
         }
 
-        public async Task<ServiceDTO> getCustomerByMobilrNo(long mobileNo)
+        public async Task<ServiceDTO> getCustomerByMobileNo(long mobileNo)
         {
-            var result = await customerRepo.getCustomerByMobilrNo(mobileNo);
+            CustomerProfile customerProfile = await customerRepo.getCustomerByMobileNo(mobileNo);
+            ServiceDTO result = new ServiceDTO();
+            result.CustomerProfile = customerProfile;
+
+            if (result.CustomerProfile != null)
+            {
+                long customerId = result.CustomerProfile.customerId;
+                var serviceDetails = await serviceDetailRepo.getVehicleServiceByCustomerId(customerId);
+                result.vehicleServiceDetails = mapper.Map<List<VehicleServiceDetailDTO>>(serviceDetails);
+            }
+            
+            if (result.CustomerProfile != null && result.vehicleServiceDetails != null)
+            {
+                var taskList = await taskRepo.vehicleServiceTaskCompletedListsByCustId(result.CustomerProfile.customerId);
+                result.vehicleServiceDetails.ForEach(async service =>
+                {
+                    var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
+                    service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
+                });
+            }
+            
             return result;
         }
     }

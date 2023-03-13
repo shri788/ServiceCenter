@@ -26,7 +26,7 @@ namespace ServiceCenterReception.Controllers
         [Route("getByMobileNo/{mobileNo}")]
         public async Task<ServiceDTO> getCustomerByMobileNo(long mobileNo)
         {
-            return await customerSvc.getCustomerByMobilrNo(mobileNo);
+            return await customerSvc.getCustomerByMobileNo(mobileNo);
         }
     }
 }

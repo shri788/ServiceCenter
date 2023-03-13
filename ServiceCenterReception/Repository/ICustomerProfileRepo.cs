@@ -9,6 +9,6 @@ namespace ServiceCenterReception.Repository
 
         Task<CustomerProfile> updateCustomer(CustomerProfile customer);
 
-        Task<ServiceDTO> getCustomerByMobilrNo(long mobileNo);
+        Task<CustomerProfile> getCustomerByMobileNo(long mobileNo);
     }
 }

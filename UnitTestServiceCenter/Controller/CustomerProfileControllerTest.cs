@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ServiceCenterReception.Controllers;
 using ServiceCenterReception.Data;
+using ServiceCenterReception.DTO;
 using ServiceCenterReception.Entity;
 using ServiceCenterReception.Service;
 using System;
@@ -21,8 +22,7 @@ namespace UnitTestServiceCenter.Controller
         public void addCustomer_shouldCheckCustomerName_newlyAdded()
         {
             // arrange
-            //var obj = CustomerProfileModelBuild.buildCustomerModel();
-            var obj = new CustomerProfile();
+            var obj = new CustomerVehicleServiceDTO();
             obj.customerId = 0;
             obj.mobileNumber = 2222222222;
             obj.customerName = "Test";
@@ -35,13 +35,40 @@ namespace UnitTestServiceCenter.Controller
             obj.lastServiceDate = new DateTime(2023, 10, 10);
             obj.dueInMonths = 5;
 
-            //var fakeSvc = A.Fake<ICustomerProfileSvc>();
-            //A.CallTo(() => fakeSvc.addCustomer(obj)).Returns(Task.FromResult(obj));
-            //var controller = new CustomerProfileController(fakeSvc);
-            //// act
-            //var result = controller.addCustomer(obj).Result;
-            //// assert
-            //Assert.Equal("Test", result.customerName);
+            var resObj = new generalResponseDTO();
+            resObj.action = "success";
+
+            var fakeSvc = A.Fake<ICustomerProfileSvc>();
+            A.CallTo(() => fakeSvc.addCustomer(obj)).Returns(Task.FromResult(resObj));
+            var controller = new CustomerProfileController(fakeSvc);
+            // act
+            var result = controller.addCustomer(obj).Result;
+            // assert
+            Assert.Equal("success", result.action);
+        }
+
+        [Fact]
+        public void getCustomer_shouldReturn_ByMobileNumber()
+        {
+            // arrange
+            var cust = new CustomerProfile();
+            cust.customerName = "Test";
+            cust.mobileNumber = 8079041795;
+            var resObj = new ServiceDTO();
+            
+            resObj.CustomerProfile = cust;
+
+            var mobNo = 8079041795;
+            var fakeSvc = A.Fake<ICustomerProfileSvc>();
+            A.CallTo(() => fakeSvc.getCustomerByMobileNo(mobNo)).Returns(Task.FromResult(resObj));
+
+            var controller = new CustomerProfileController(fakeSvc);
+
+            // act
+            var result = controller.getCustomerByMobileNo(mobNo).Result;
+
+            // assert
+            Assert.Equal("Test", result.CustomerProfile.customerName);
         }
     }
 }

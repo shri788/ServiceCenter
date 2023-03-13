@@ -14,6 +14,8 @@ namespace ServiceCenterReception.Entity
         [Required]
         public long taskServiceCharges { get; set; }
 
+        public long customerId { get; set; }
+
         public  string? remarks { get; set; }
 
         [ForeignKey("VehicleServiceDetail")]

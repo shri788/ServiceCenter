@@ -7,6 +7,6 @@ namespace ServiceCenterReception.Service
     {
         Task<generalResponseDTO> addCustomer(CustomerVehicleServiceDTO customer);
 
-        Task<ServiceDTO> getCustomerByMobilrNo(long mobileNo);
+        Task<ServiceDTO> getCustomerByMobileNo(long mobileNo);
     }
 }

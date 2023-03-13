@@ -1,0 +1,40 @@
+
+// add customer object
+
+{
+  "customerId": 0,
+  "gender": "F",
+  "customerName": "string 00",
+  "mobileNumber": 99000999999,
+  "address": "string",
+  "addressPinCode": 0,
+  "email": "user@example.com",
+ "dob": "1970-01-01T00:00:00.000Z",
+  "vehicleServiceDetail": {
+    "vehicleServiceDetailId": 0,
+    "vehicleId": 0,
+    "vehicleDetails": {
+      "vehicleId": 0,
+      "vehicleType": "Four Wheeler",
+      "vehicleNumber": "rj37ua7629",
+      "customerId": 0
+    },
+    "vehicleServiceRecieveDelivery": {
+      "vehicleServiceRecieveDeliveryId": 0,
+      "vehicleReceiveDate": "2023-03-12T05:22:01.950Z"
+    }
+  }
+}
+
+
+// add service tasks object
+
+[
+  {
+  "taskServiceId": 0,
+  "taskServiceName": "wash",
+  "taskServiceCharges": 500,
+  "remarks": "string wash",
+  "vehicleServiceDetailId": 10
+  }
+]
