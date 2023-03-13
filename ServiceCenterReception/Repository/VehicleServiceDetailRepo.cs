@@ -43,8 +43,23 @@ namespace ServiceCenterReception.Repository
             {
                 var result = await _context.vehicleServiceDetails.Where(
                             x => x.vehicleServiceDetailId == serviceId)
+                            .Include(x => x.VehicleServiceRecieveDelivery)
                             .FirstOrDefaultAsync();
                 return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<VehicleServiceDetail> updateServiceData(VehicleServiceDetail service)
+        {
+            try
+            {
+                _context.vehicleServiceDetails.Update(service);
+                await _context.SaveChangesAsync();
+                return service;
             }
             catch (Exception ex)
             {

@@ -20,5 +20,7 @@ namespace ServiceCenterReception.Data
             
             public DbSet<ServiceTasksMaster> serviceTasksMasters { get; set; } = null!;
 
+            public DbSet<FinalServiceBill> finalServiceBills { get; set; } = null!;
+
     }
 } 

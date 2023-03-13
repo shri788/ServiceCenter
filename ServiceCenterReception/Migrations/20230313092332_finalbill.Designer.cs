@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ServiceCenterReception.Data;
@@ -11,9 +12,11 @@ using ServiceCenterReception.Data;
 namespace ServiceCenterReception.Migrations
 {
     [DbContext(typeof(serviceCenterDbContext))]
-    partial class serviceCenterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230313092332_finalbill")]
+    partial class finalbill
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,40 +68,6 @@ namespace ServiceCenterReception.Migrations
                     b.HasKey("customerId");
 
                     b.ToTable("customerProfiles");
-                });
-
-            modelBuilder.Entity("ServiceCenterReception.Entity.FinalServiceBill", b =>
-                {
-                    b.Property<long>("finalServiceBillId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("finalServiceBillId"));
-
-                    b.Property<long>("amountPaid")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("customerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("dateTimeGenerated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("discountAmount")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("discountPercentage")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("totalAmount")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("vehicleServiceDetailId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("finalServiceBillId");
-
-                    b.ToTable("finalServiceBills");
                 });
 
             modelBuilder.Entity("ServiceCenterReception.Entity.ServiceTasksMaster", b =>

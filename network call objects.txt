@@ -38,3 +38,14 @@
   "vehicleServiceDetailId": 10
   }
 ]
+
+// final bill generate object
+{
+  "finalServiceBillId": 0,
+  "customerId": 12,
+  "vehicleServiceDetailId": 8,
+  "totalAmount": 12000,
+  "discountPercentage": 0,
+  "discountAmount": 2000,
+  "amountPaid": 10000
+}

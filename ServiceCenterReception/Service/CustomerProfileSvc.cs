@@ -47,16 +47,22 @@ namespace ServiceCenterReception.Service
             
             if (vehicleDetails != null && customerCreatedUpdated != null && customerCreatedUpdated.customerId != 0)
             {
-                if(vehicleDetails.vehicleId == 0 || vehicleDetails.vehicleId < 0)
+                if(vehicleDetails.vehicleId > 0)
+                {
+                    var vehicle = await vehicleDetailsRepo.getVehicle(vehicleDetails.vehicleId);
+                    if (vehicle != null)
+                    {
+                        vehicleId = vehicle.vehicleId;
+                    } else
+                    {
+                        resObj.action = "error";
+                        resObj.message = "Wrong vehicle Id found, please check again.";
+                    }
+                } else
                 {
                     vehicleDetails.customerId = customerCreatedUpdated.customerId;
                     await vehicleDetailsRepo.addVehicle(vehicleDetails);
                     vehicleId = vehicleDetails.vehicleId;
-                } else
-                {
-                    var vehicle = await vehicleDetailsRepo.getVehicle(vehicleDetails.vehicleId);
-                    if (vehicle != null)
-                        vehicleId = vehicle.vehicleId;
                 }
             }
             if (vehicleServiceDetail != null && customerCreatedUpdated != null && customerCreatedUpdated.customerId != 0)
