@@ -6,7 +6,9 @@ namespace ServiceCenterReception.Data
     public class serviceCenterDbContext : DbContext
     {
         public serviceCenterDbContext(DbContextOptions<serviceCenterDbContext> options)
-            : base(options) { }
+            : base(options) {
+                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                }
 
             public DbSet<CustomerProfile> customerProfiles { get; set; } = null!;
 

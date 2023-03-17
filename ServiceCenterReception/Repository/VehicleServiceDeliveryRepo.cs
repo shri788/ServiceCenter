@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ServiceCenterReception.Data;
+using ServiceCenterReception.DTO;
 using ServiceCenterReception.Entity;
 
 namespace ServiceCenterReception.Repository
@@ -8,9 +10,12 @@ namespace ServiceCenterReception.Repository
     {
         private readonly serviceCenterDbContext context;
 
-        public VehicleServiceDeliveryRepo(serviceCenterDbContext context)
+        private readonly IMapper mapper;
+
+        public VehicleServiceDeliveryRepo(serviceCenterDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<VehicleServiceRecieveDelivery> getDeliveryById(long deliveryId)
@@ -34,6 +39,48 @@ namespace ServiceCenterReception.Repository
                 context.vehicleServiceRecieveDeliveries.Update(delivery);
                 await context.SaveChangesAsync();
                 return delivery;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<VehicleServiceDTO>> getInProcessServices()
+        {
+            try
+            {
+                var result = await context.vehicleServiceDetails
+                        .Include(x => x.VehicleServiceRecieveDelivery)
+                        .Where(x => 
+                        x.VehicleServiceRecieveDelivery.vehicleDeliveryDate == new DateTime(1970, 1, 1, 5, 30, 0))
+                        .Include(a => a.CustomerProfile)
+                        .Include(a => a.VehicleDetails)
+                        .ToListAsync();
+                var resDto = mapper.Map<List<VehicleServiceDTO>>(result);
+
+                return resDto;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<VehicleServiceDTO>> getCompletedServicesBetweenDates(DateTime? startDate, DateTime? endDate)
+        {
+            try
+            {
+                var result = await context.vehicleServiceDetails
+                         .Include(x => x.VehicleServiceRecieveDelivery)
+                         .Where(x =>
+                         x.VehicleServiceRecieveDelivery.vehicleDeliveryDate >= startDate &&
+                         x.VehicleServiceRecieveDelivery.vehicleDeliveryDate <= endDate)
+                         .Include(a => a.CustomerProfile)
+                         .Include(a => a.VehicleDetails)
+                         .ToListAsync();
+                var resDto = mapper.Map<List<VehicleServiceDTO>>(result);
+                return resDto;
             }
             catch (Exception ex)
             {

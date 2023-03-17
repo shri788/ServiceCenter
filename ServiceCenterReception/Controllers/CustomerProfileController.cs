@@ -17,6 +17,7 @@ namespace ServiceCenterReception.Controllers
         }
 
         [HttpPost]
+        [Route("profileWithService")]
         public async Task<generalResponseDTO> addCustomer(CustomerVehicleServiceDTO customer)
         {
             return await customerSvc.addCustomer(customer);

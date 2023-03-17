@@ -21,6 +21,7 @@ builder.Services.AddScoped<IVehicleServiceTaskRepo, VehiclServiceTaskRepo>();
 builder.Services.AddScoped<IFinalBillRepo, FinalBillRepo>();
 builder.Services.AddScoped<IFinalBillSvc, FinalBillSvc>();
 builder.Services.AddScoped<IVehicleServiceDeliveryRepo, VehicleServiceDeliveryRepo>();
+builder.Services.AddScoped<IVehicleServiceDeliverySvc, VehicleServiceDeliverySvc>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 // startup services ends here
