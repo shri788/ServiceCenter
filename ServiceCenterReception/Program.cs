@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using ServiceCenterReception.Data;
 using ServiceCenterReception.Repository;
@@ -38,6 +39,13 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed((host) => true)
+                .AllowCredentials()
+            );
 
 app.UseHttpsRedirection();
 
