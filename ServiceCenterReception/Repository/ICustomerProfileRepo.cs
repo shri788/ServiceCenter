@@ -10,5 +10,9 @@ namespace ServiceCenterReception.Repository
         Task<CustomerProfile> updateCustomer(CustomerProfile customer);
 
         Task<CustomerProfile> getCustomerByMobileNo(long mobileNo);
+
+        Task<List<CustomerProfile>> getAllCustomers(int pageNo, int pageSize);
+
+        long getAllCustomersCount();
     }
 }

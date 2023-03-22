@@ -29,5 +29,12 @@ namespace ServiceCenterReception.Controllers
         {
             return await customerSvc.getCustomerByMobileNo(mobileNo);
         }
+
+        [HttpGet]
+        [Route("getAllCustomers/{pageNo}/{pageSize}")]
+        public async Task<ServiceDTOwithPagination> getAllCustomers(int pageNo, int pageSize)
+        {
+            return await customerSvc.getAllCustomers(pageNo, pageSize);
+        }
     }
 }

@@ -59,5 +59,34 @@ namespace ServiceCenterReception.Repository
                 return null;
             }
         }
+
+        public async Task<List<CustomerProfile>> getAllCustomers(int pageNo, int pageSize)
+        {
+            try
+            {
+                var skip = (pageNo - 1) * pageSize;
+                var customers = await context.customerProfiles
+                                   .OrderBy(x => x.customerId)
+                                   .Skip(skip).Take(pageSize)
+                                   .ToListAsync();
+                return customers;
+            } catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public long getAllCustomersCount()
+        {
+            try
+            {
+                var customersCount = context.customerProfiles.Count();
+                return customersCount;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+        }
     }
 }

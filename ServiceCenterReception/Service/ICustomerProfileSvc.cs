@@ -8,5 +8,7 @@ namespace ServiceCenterReception.Service
         Task<generalResponseDTO> addCustomer(CustomerVehicleServiceDTO customer);
 
         Task<ServiceDTO> getCustomerByMobileNo(long mobileNo);
+
+        Task<ServiceDTOwithPagination> getAllCustomers(int pageNo, int pageSize);
     }
 }

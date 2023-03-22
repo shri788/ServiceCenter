@@ -105,5 +105,39 @@ namespace ServiceCenterReception.Service
             
             return result;
         }
+
+        public async Task<ServiceDTOwithPagination> getAllCustomers(int pageNo, int pageSize)
+        {
+            var customers = await customerRepo.getAllCustomers(pageNo, pageSize);
+            var customerListDto = new ServiceDTOwithPagination();
+            var serviceDTO = new List<ServiceDTO>();
+            foreach (var customer in customers)
+            {
+                ServiceDTO dto = new ServiceDTO();
+                dto.CustomerProfile = customer;
+                if (dto.CustomerProfile != null)
+                {
+                    long customerId = dto.CustomerProfile.customerId;
+                    var serviceDetails = await serviceDetailRepo.getVehicleServiceByCustomerId(customerId);
+                    dto.vehicleServiceDetails = mapper.Map<List<VehicleServiceDetailDTO>>(serviceDetails);
+                }
+
+                if (dto.CustomerProfile != null && dto.vehicleServiceDetails != null)
+                {
+                    var taskList = await taskRepo.vehicleServiceTaskCompletedListsByCustId(dto.CustomerProfile.customerId);
+                    dto.vehicleServiceDetails.ForEach(async service =>
+                    {
+                        var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
+                        service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
+                    });
+                }
+                serviceDTO.Add(dto);
+            }
+            customerListDto.customersList = serviceDTO;
+            customerListDto.totalCount = customerRepo.getAllCustomersCount();
+            customerListDto.totalPages = (int)Math.Ceiling((double)customerListDto.totalCount / pageSize);
+            customerListDto.currentPage = pageNo;
+            return customerListDto;
+        }
     }
 }
