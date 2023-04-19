@@ -26,10 +26,10 @@ namespace ServiceCenterReception.Entity
         [EmailAddress]
         public string? email { get; set; }
 
-        [DefaultValue("1970-01-01")]
+        [DefaultValue("0001-01-01")]
         public DateTime DOB { get; set; }
 
-        [DefaultValue("1970-01-01")]
+        [DefaultValue("0001-01-01")]
         public DateTime DOM { get; set; }
 
         public DateTime lastServiceDate { get; set;}

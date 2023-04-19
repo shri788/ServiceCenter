@@ -7,5 +7,7 @@ namespace ServiceCenterReception.DTO
         public CustomerProfile? CustomerProfile { get; set; }
 
         public List<VehicleServiceDetailDTO>? vehicleServiceDetails { get; set; }
+
+        public List<VehicleDetailsDTO>? vehicleDetails { get; set; }
     }
 }

@@ -70,7 +70,7 @@ namespace ServiceCenterReception.Service
                 vehicleServiceDetail.customerId = customerCreatedUpdated.customerId;
                 vehicleServiceDetail.vehicleId = vehicleId;
                 vehicleServiceDetail.VehicleServiceRecieveDelivery.vehicleReceiveDate = DateTime.UtcNow;
-                DateTime dateTime = new DateTime(1970, 1, 1, 5, 30, 0);
+                DateTime dateTime = new DateTime(0001, 1, 1, 5, 30, 0);
                 DateTime utcDateTime = dateTime.ToUniversalTime();
                 vehicleServiceDetail.VehicleServiceRecieveDelivery.vehicleDeliveryDate = utcDateTime;
                 await serviceDetailRepo.addServiceData(vehicleServiceDetail);
@@ -101,6 +101,8 @@ namespace ServiceCenterReception.Service
                     var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
                     service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
                 });
+                var vehList = await vehicleDetailsRepo.getVehiclesByCustomerId(result.CustomerProfile.customerId);
+                result.vehicleDetails = mapper.Map<List<VehicleDetailsDTO>>(vehList);
             }
             
             return result;

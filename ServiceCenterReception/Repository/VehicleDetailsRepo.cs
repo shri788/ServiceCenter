@@ -40,5 +40,17 @@ namespace ServiceCenterReception.Repository
             }
             
         }
+
+        public async Task<List<VehicleDetails>> getVehiclesByCustomerId(long customerId)
+        {
+            try
+            {
+                return await context.vehicleDetails.Where(x => 
+                    x.customerId == customerId).ToListAsync();
+            } catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
