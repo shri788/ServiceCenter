@@ -13,9 +13,13 @@ namespace ServiceCenterReception.DTO
 
             CreateMap<VehicleServiceDetail, VehicleServiceDetailDTO>();
 
+            CreateMap<VehicleServiceDetailReqDTO, VehicleServiceDetail>();
+
             CreateMap<VehicleDetails, VehicleDetailsDTO>();
 
-            CreateMap<VehicleServiceTaskCompletedList, VehicleServiceTaskCompletedListDTO>();
+            CreateMap<VehicleDetailsDTO, VehicleDetails>();
+
+            //CreateMap<VehicleServiceTaskCompletedList, VehicleServiceTaskCompletedListDTO>();
 
             CreateMap<VehicleServiceDetail, VehicleServiceDTO>();
         }

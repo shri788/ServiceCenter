@@ -16,14 +16,14 @@ namespace ServiceCenterReception.Service
             this.detailRepo = detailRepo;
         }
 
-        public async Task<generalResponseDTO> addTasks(List<VehicleServiceTaskCompletedList> list)
-        {
-            var serviceDetails = await detailRepo.getVehicleServiceByServiceId(list[0].vehicleServiceDetailId);
-            list.ForEach(service =>
-            {
-                service.customerId = serviceDetails.customerId;
-            });
-            return await taskRepo.addTasks(list);
-        }
+        //public async Task<generalResponseDTO> addTasks(List<VehicleServiceTaskCompletedList> list)
+        //{
+        //    var serviceDetails = await detailRepo.getVehicleServiceByServiceId(list[0].vehicleServiceDetailId);
+        //    list.ForEach(service =>
+        //    {
+        //        service.customerId = serviceDetails.customerId;
+        //    });
+        //    return await taskRepo.addTasks(list);
+        //}
     }
 }

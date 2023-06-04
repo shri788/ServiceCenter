@@ -18,11 +18,17 @@ namespace ServiceCenterReception.Data
 
             public DbSet<VehicleServiceDetail> vehicleServiceDetails { get; set; } = null!;
 
-            public DbSet<VehicleServiceTaskCompletedList> vehicleServiceTaskCompletedLists { get; set; } = null!;
+            //public DbSet<ServiceCompletedTask> serviceCompletedTasks { get; set; } = null!;
             
-            public DbSet<ServiceTasksMaster> serviceTasksMasters { get; set; } = null!;
+            public DbSet<ServiceTaskMaster> serviceTaskMasters { get; set; } = null!;
 
             public DbSet<FinalServiceBill> finalServiceBills { get; set; } = null!;
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<CustomerProfile>()
+                .HasIndex(c => c.mobileNumber)
+                .IsUnique();
+        }
     }
 } 

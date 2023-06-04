@@ -16,10 +16,10 @@ namespace ServiceCenterReception.Controllers
             this.taskSvc = taskSvc;
         }
 
-        [HttpPost]
-        public async Task<generalResponseDTO> addTasks(List<VehicleServiceTaskCompletedList> list)
-        {
-            return await taskSvc.addTasks(list);
-        }
+        //[HttpPost]
+        //public async Task<generalResponseDTO> addTasks(List<VehicleServiceTaskCompletedList> list)
+        //{
+        //    return await taskSvc.addTasks(list);
+        //}
     }
 }

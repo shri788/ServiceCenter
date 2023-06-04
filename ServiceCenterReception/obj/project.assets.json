@@ -1380,11 +1380,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
+      "projectUniqueName": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
       "projectName": "ServiceCenterReception",
-      "projectPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
+      "projectPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\obj\\",
+      "outputPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

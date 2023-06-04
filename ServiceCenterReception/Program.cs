@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ServiceCenterReception.Data;
 using ServiceCenterReception.Repository;
 using ServiceCenterReception.Service;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<serviceCenterDbContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("pgServerConnection"));
+    option.EnableSensitiveDataLogging();
 });
 
 // startup services starts here

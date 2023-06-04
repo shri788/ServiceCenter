@@ -10,7 +10,7 @@ namespace ServiceCenterReception.DTO
         [ForeignKey("VehicleDetails")]
         public long vehicleId { get; set; }
 
-        public virtual VehicleDetailsDTO? VehicleDetails { get; set; }
+        public VehicleDetailsDTO? VehicleDetails { get; set; }
 
         public VehicleServiceRecieveDelivery? VehicleServiceRecieveDelivery { get; set; }
 

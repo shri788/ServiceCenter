@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj": {}
+    "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj": {}
   },
   "projects": {
-    "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj": {
+    "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
+        "projectUniqueName": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
         "projectName": "ServiceCenterReception",
-        "projectPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
+        "projectPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\obj\\",
+        "outputPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -93,14 +93,14 @@
         }
       }
     },
-    "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj": {
+    "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj",
+        "projectUniqueName": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj",
         "projectName": "UnitTestServiceCenter",
-        "projectPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj",
+        "projectPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\UnitTestServiceCenter\\UnitTestServiceCenter.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\UnitTestServiceCenter\\obj\\",
+        "outputPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\UnitTestServiceCenter\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -116,8 +116,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj": {
-                "projectPath": "D:\\Repositories\\Vipul\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj"
+              "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj": {
+                "projectPath": "D:\\Repositories\\ServiceCenterProject\\ServiceCenterReception BE\\ServiceCenterReception\\ServiceCenterReception.csproj"
               }
             }
           }

@@ -11,5 +11,7 @@ namespace ServiceCenterReception.DTO
         public string? vehicleType { get; set; }
 
         public string? vehicleNumber { get; set; }
+
+        public long customerId { get; set; }
     }
 }

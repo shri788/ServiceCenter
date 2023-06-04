@@ -27,7 +27,7 @@ namespace ServiceCenterReception.Repository
                 var result = await _context.vehicleServiceDetails.Where(
                             x => x.customerId == customerId)
                             .Include(x => x.VehicleServiceRecieveDelivery)
-                            .Include(x => x.VehicleDetails)
+                            //.Include(x => x.VehicleDetails)
                             .ToListAsync();
                 return result;
             }

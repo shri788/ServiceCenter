@@ -5,6 +5,6 @@ namespace ServiceCenterReception.Service
 {
     public interface IVehicleServiceTaskSvc
     {
-        Task<generalResponseDTO> addTasks(List<VehicleServiceTaskCompletedList> list);
+        //Task<generalResponseDTO> addTasks(List<VehicleServiceTaskCompletedList> list);
     }
 }

@@ -13,6 +13,12 @@ namespace ServiceCenterReception.Repository
 
         Task<List<CustomerProfile>> getAllCustomers(int pageNo, int pageSize);
 
+        //Task<bool> addCompletedTasks(List<ServiceCompletedTask> tasks);
+
+        Task<CustomerProfile> getCustomerByCustomerId(long customerId);
+
         long getAllCustomersCount();
+
+        Task<List<ServiceTaskMaster>> getAllTaskMaster();
     }
 }

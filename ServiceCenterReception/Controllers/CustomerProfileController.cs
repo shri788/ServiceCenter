@@ -36,5 +36,13 @@ namespace ServiceCenterReception.Controllers
         {
             return await customerSvc.getAllCustomers(pageNo, pageSize);
         }
+
+        [HttpGet]
+        [Route("getServiceTaskMaster")]
+        public async Task<IActionResult> getAllTaskMaster()
+        {
+            var result = await customerSvc.getAllTaskMaster();
+            return Ok(result);
+        }
     }
 }

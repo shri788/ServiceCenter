@@ -3,6 +3,7 @@ using ServiceCenterReception.Data;
 using ServiceCenterReception.DTO;
 using ServiceCenterReception.Entity;
 using ServiceCenterReception.Repository;
+using System.Text.Json;
 
 namespace ServiceCenterReception.Service
 {
@@ -32,52 +33,71 @@ namespace ServiceCenterReception.Service
         public async Task<generalResponseDTO> addCustomer(CustomerVehicleServiceDTO customer)
         {
             generalResponseDTO resObj = new generalResponseDTO();
-            var vehicleDetails = customer.VehicleServiceDetail?.VehicleDetails;
-            var vehicleServiceDetail = customer.VehicleServiceDetail;
-            long vehicleId = 0;
-            var customerProfile = mapper.Map<CustomerProfile>(customer);
-            var customerCreatedUpdated = new CustomerProfile();
-            if(customerProfile.customerId > 0)
+            try
             {
-                customerCreatedUpdated = await customerRepo.updateCustomer(customerProfile);
-            } else
+                long vehicleId = 0;
+                var vehicleDetails = new VehicleDetailsDTO();
+                if (customer.VehicleServiceDetail != null && customer.VehicleServiceDetail.vehicleId > 0)
+                    vehicleId = customer.VehicleServiceDetail.vehicleId;
+                if (customer.VehicleServiceDetail != null && vehicleId == 0)
+                    vehicleDetails = customer.VehicleServiceDetail.VehicleDetails;
+                var vehicleServiceDetail = customer.VehicleServiceDetail;
+
+                var customerProfile = mapper.Map<CustomerProfile>(customer);
+                var customerCreatedUpdated = new CustomerProfile();
+
+                if (customerProfile.customerId > 0)
+                {
+                    var existingCustomer = await customerRepo.getCustomerByCustomerId(customerProfile.customerId);
+                    if (existingCustomer != null)
+                    {
+                        customerProfile.mobileNumber = existingCustomer.mobileNumber;
+                    }
+                    customerCreatedUpdated = await customerRepo.updateCustomer(customerProfile);
+                }
+                else
+                {
+                    customerCreatedUpdated = await customerRepo.addCustomer(customerProfile);
+                }
+
+                if (vehicleDetails != null && customerCreatedUpdated != null)
+                {
+                    if (vehicleId == 0)
+                    {
+                        vehicleDetails.customerId = customerCreatedUpdated.customerId;
+                        var vehicle = mapper.Map<VehicleDetails>(vehicleDetails);
+                        var result = await vehicleDetailsRepo.addVehicle(vehicle);
+                        vehicleId = result.vehicleId;
+                    }
+                }
+                if (vehicleServiceDetail != null && customerCreatedUpdated != null)
+                {
+                    if (vehicleServiceDetail.VehicleServiceRecieveDelivery != null)
+                    {
+                        vehicleServiceDetail.VehicleServiceRecieveDelivery.vehicleReceiveDate = DateTime.UtcNow;
+                        DateTime dateTime = new DateTime(1970, 1, 1, 5, 30, 0);
+                        DateTime utcDateTime = dateTime.ToUniversalTime();
+                        vehicleServiceDetail.VehicleServiceRecieveDelivery.vehicleDeliveryDate = utcDateTime;
+                    }
+                    //var json = JsonSerializer.Serialize(vehicleServiceDetail);
+                    //Console.WriteLine(json);
+                    var service = mapper.Map<VehicleServiceDetail>(vehicleServiceDetail);
+
+                    service.vehicleId = vehicleId;
+                    service.customerId = customerProfile.customerId;
+
+                    await serviceDetailRepo.addServiceData(service);
+                }
+                resObj.action = "success";
+                resObj.message = "Customer data & service data created successfully.";
+                return resObj;
+            } catch (Exception ex)
             {
-                customerCreatedUpdated = await customerRepo.addCustomer(customerProfile);
+                resObj.action = "error";
+                resObj.message = "System Exception: " + ex.Message;
+                return resObj;
             }
             
-            if (vehicleDetails != null && customerCreatedUpdated != null && customerCreatedUpdated.customerId != 0)
-            {
-                if(vehicleDetails.vehicleId > 0)
-                {
-                    var vehicle = await vehicleDetailsRepo.getVehicle(vehicleDetails.vehicleId);
-                    if (vehicle != null)
-                    {
-                        vehicleId = vehicle.vehicleId;
-                    } else
-                    {
-                        resObj.action = "error";
-                        resObj.message = "Wrong vehicle Id found, please check again.";
-                    }
-                } else
-                {
-                    vehicleDetails.customerId = customerCreatedUpdated.customerId;
-                    await vehicleDetailsRepo.addVehicle(vehicleDetails);
-                    vehicleId = vehicleDetails.vehicleId;
-                }
-            }
-            if (vehicleServiceDetail != null && customerCreatedUpdated != null && customerCreatedUpdated.customerId != 0)
-            {
-                vehicleServiceDetail.customerId = customerCreatedUpdated.customerId;
-                vehicleServiceDetail.vehicleId = vehicleId;
-                vehicleServiceDetail.VehicleServiceRecieveDelivery.vehicleReceiveDate = DateTime.UtcNow;
-                DateTime dateTime = new DateTime(0001, 1, 1, 5, 30, 0);
-                DateTime utcDateTime = dateTime.ToUniversalTime();
-                vehicleServiceDetail.VehicleServiceRecieveDelivery.vehicleDeliveryDate = utcDateTime;
-                await serviceDetailRepo.addServiceData(vehicleServiceDetail);
-            }
-            resObj.action = "success";
-            resObj.message = "Customer data & service data created successfully.";
-            return resObj;
         }
 
         public async Task<ServiceDTO> getCustomerByMobileNo(long mobileNo)
@@ -95,12 +115,12 @@ namespace ServiceCenterReception.Service
             
             if (result.CustomerProfile != null && result.vehicleServiceDetails != null)
             {
-                var taskList = await taskRepo.vehicleServiceTaskCompletedListsByCustId(result.CustomerProfile.customerId);
-                result.vehicleServiceDetails.ForEach(async service =>
-                {
-                    var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
-                    service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
-                });
+                //var taskList = await taskRepo.vehicleServiceTaskCompletedListsByCustId(result.CustomerProfile.customerId);
+                //result.vehicleServiceDetails.ForEach(async service =>
+                //{
+                //    var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
+                //    service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
+                //});
                 var vehList = await vehicleDetailsRepo.getVehiclesByCustomerId(result.CustomerProfile.customerId);
                 result.vehicleDetails = mapper.Map<List<VehicleDetailsDTO>>(vehList);
             }
@@ -124,15 +144,15 @@ namespace ServiceCenterReception.Service
                     dto.vehicleServiceDetails = mapper.Map<List<VehicleServiceDetailDTO>>(serviceDetails);
                 }
 
-                if (dto.CustomerProfile != null && dto.vehicleServiceDetails != null)
-                {
-                    var taskList = await taskRepo.vehicleServiceTaskCompletedListsByCustId(dto.CustomerProfile.customerId);
-                    dto.vehicleServiceDetails.ForEach(async service =>
-                    {
-                        var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
-                        service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
-                    });
-                }
+                //if (dto.CustomerProfile != null && dto.vehicleServiceDetails != null)
+                //{
+                //    var taskList = await taskRepo.vehicleServiceTaskCompletedListsByCustId(dto.CustomerProfile.customerId);
+                //    dto.vehicleServiceDetails.ForEach(async service =>
+                //    {
+                //        var taskListForService = taskList.Where(x => x.vehicleServiceDetailId == service.vehicleServiceDetailId).ToList();
+                //        service.VehicleServiceTaskCompletedLists = mapper.Map<List<VehicleServiceTaskCompletedListDTO>>(taskListForService);
+                //    });
+                //}
                 serviceDTO.Add(dto);
             }
             customerListDto.customersList = serviceDTO;
@@ -140,6 +160,17 @@ namespace ServiceCenterReception.Service
             customerListDto.totalPages = (int)Math.Ceiling((double)customerListDto.totalCount / pageSize);
             customerListDto.currentPage = pageNo;
             return customerListDto;
+        }
+
+        //public async Task<bool> addCompletedTasks(List<ServiceCompletedTask> tasks)
+        //{
+        //    var result = await customerRepo.addCompletedTasks(tasks);
+        //    return result;
+        //}
+
+        public async Task<List<ServiceTaskMaster>> getAllTaskMaster()
+        {
+            return await customerRepo.getAllTaskMaster();
         }
     }
 }

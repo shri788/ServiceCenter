@@ -26,16 +26,16 @@ namespace ServiceCenterReception.DTO
         [EmailAddress]
         public string? email { get; set; }
 
-        [DefaultValue("1970-01-01T00:00:00.000Z")]
+        [DefaultValue("0001-01-01T00:00:00.000Z")]
         public DateTime DOB { get; set; }
 
-        [DefaultValue("1970-01-01T00:00:00.000Z")]
+        [DefaultValue("0001-01-01T00:00:00.000Z")]
         public DateTime? DOM { get; set; }
 
         public DateTime? lastServiceDate { get; set; }
 
         public int dueInMonths { get; set; }
 
-        public virtual VehicleServiceDetail? VehicleServiceDetail { get; set; }
+        public virtual VehicleServiceDetailReqDTO? VehicleServiceDetail { get; set; }
     }
 }

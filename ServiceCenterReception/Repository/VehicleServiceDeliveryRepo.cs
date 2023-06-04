@@ -55,7 +55,7 @@ namespace ServiceCenterReception.Repository
                         .Where(x => 
                         x.VehicleServiceRecieveDelivery.vehicleDeliveryDate == new DateTime(1970, 1, 1, 5, 30, 0))
                         .Include(a => a.CustomerProfile)
-                        .Include(a => a.VehicleDetails)
+                        //.Include(a => a.VehicleDetails)
                         .ToListAsync();
                 var resDto = mapper.Map<List<VehicleServiceDTO>>(result);
 
@@ -77,7 +77,7 @@ namespace ServiceCenterReception.Repository
                          x.VehicleServiceRecieveDelivery.vehicleDeliveryDate >= startDate &&
                          x.VehicleServiceRecieveDelivery.vehicleDeliveryDate <= endDate)
                          .Include(a => a.CustomerProfile)
-                         .Include(a => a.VehicleDetails)
+                         //.Include(a => a.VehicleDetails)
                          .ToListAsync();
                 var resDto = mapper.Map<List<VehicleServiceDTO>>(result);
                 return resDto;

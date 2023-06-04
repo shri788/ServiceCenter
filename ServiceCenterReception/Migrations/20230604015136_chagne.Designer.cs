@@ -12,8 +12,8 @@ using ServiceCenterReception.Data;
 namespace ServiceCenterReception.Migrations
 {
     [DbContext(typeof(serviceCenterDbContext))]
-    [Migration("20230313023528_task")]
-    partial class task
+    [Migration("20230604015136_chagne")]
+    partial class chagne
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,10 @@ namespace ServiceCenterReception.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("customerId"));
 
                     b.Property<DateTime>("DOB")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DOM")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("address")
                         .HasColumnType("text");
@@ -60,37 +60,131 @@ namespace ServiceCenterReception.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("lastServiceDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<long>("mobileNumber")
                         .HasColumnType("bigint");
 
                     b.HasKey("customerId");
 
+                    b.HasIndex("mobileNumber")
+                        .IsUnique();
+
                     b.ToTable("customerProfiles");
                 });
 
-            modelBuilder.Entity("ServiceCenterReception.Entity.ServiceTasksMaster", b =>
+            modelBuilder.Entity("ServiceCenterReception.Entity.FinalServiceBill", b =>
                 {
-                    b.Property<int>("taskId")
+                    b.Property<long>("finalServiceBillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("finalServiceBillId"));
+
+                    b.Property<long>("amountPaid")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("customerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("dateTimeGenerated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<long>("discountAmount")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("discountPercentage")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("totalAmount")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("vehicleServiceDetailId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("finalServiceBillId");
+
+                    b.ToTable("finalServiceBills");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.ServiceCompletedTask", b =>
+                {
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("taskId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("chargesInRuppes")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("remarks")
-                        .HasColumnType("text");
-
-                    b.Property<string>("taskServiceName")
+                    b.Property<string>("Task")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("taskId");
+                    b.Property<int>("TaskCharges")
+                        .HasColumnType("integer");
 
-                    b.ToTable("serviceTasksMasters");
+                    b.Property<string>("TaskDescription")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("vehicleServiceDetailId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("vehicleServiceDetailId");
+
+                    b.ToTable("ServiceCompletedTask");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.ServiceEstimationTask", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EstimatedAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Task")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TaskDescription")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("vehicleServiceDetailId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("vehicleServiceDetailId");
+
+                    b.ToTable("ServiceEstimationTask");
+                });
+
+            modelBuilder.Entity("ServiceCenterReception.Entity.ServiceTaskMaster", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("TaskCharges")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TaskDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TaskName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("serviceTaskMasters");
                 });
 
             modelBuilder.Entity("ServiceCenterReception.Entity.VehicleDetails", b =>
@@ -142,8 +236,6 @@ namespace ServiceCenterReception.Migrations
 
                     b.HasIndex("customerId");
 
-                    b.HasIndex("vehicleId");
-
                     b.ToTable("vehicleServiceDetails");
                 });
 
@@ -156,45 +248,28 @@ namespace ServiceCenterReception.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("VehicleServiceRecieveDeliveryId"));
 
                     b.Property<DateTime>("vehicleDeliveryDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("vehicleReceiveDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("VehicleServiceRecieveDeliveryId");
 
                     b.ToTable("vehicleServiceRecieveDeliveries");
                 });
 
-            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleServiceTaskCompletedList", b =>
+            modelBuilder.Entity("ServiceCenterReception.Entity.ServiceCompletedTask", b =>
                 {
-                    b.Property<long>("taskServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.HasOne("ServiceCenterReception.Entity.VehicleServiceDetail", null)
+                        .WithMany("ServiceCompletedTasks")
+                        .HasForeignKey("vehicleServiceDetailId");
+                });
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("taskServiceId"));
-
-                    b.Property<long>("customerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("remarks")
-                        .HasColumnType("text");
-
-                    b.Property<long>("taskServiceCharges")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("taskServiceName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("vehicleServiceDetailId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("taskServiceId");
-
-                    b.HasIndex("vehicleServiceDetailId");
-
-                    b.ToTable("vehicleServiceTaskCompletedLists");
+            modelBuilder.Entity("ServiceCenterReception.Entity.ServiceEstimationTask", b =>
+                {
+                    b.HasOne("ServiceCenterReception.Entity.VehicleServiceDetail", null)
+                        .WithMany("ServiceEstimationTasks")
+                        .HasForeignKey("vehicleServiceDetailId");
                 });
 
             modelBuilder.Entity("ServiceCenterReception.Entity.VehicleDetails", b =>
@@ -220,28 +295,16 @@ namespace ServiceCenterReception.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ServiceCenterReception.Entity.VehicleDetails", "VehicleDetails")
-                        .WithMany()
-                        .HasForeignKey("vehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CustomerProfile");
-
-                    b.Navigation("VehicleDetails");
 
                     b.Navigation("VehicleServiceRecieveDelivery");
                 });
 
-            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleServiceTaskCompletedList", b =>
+            modelBuilder.Entity("ServiceCenterReception.Entity.VehicleServiceDetail", b =>
                 {
-                    b.HasOne("ServiceCenterReception.Entity.VehicleServiceDetail", "VehicleServiceDetail")
-                        .WithMany()
-                        .HasForeignKey("vehicleServiceDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ServiceCompletedTasks");
 
-                    b.Navigation("VehicleServiceDetail");
+                    b.Navigation("ServiceEstimationTasks");
                 });
 #pragma warning restore 612, 618
         }

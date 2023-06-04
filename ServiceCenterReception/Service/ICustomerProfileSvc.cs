@@ -10,5 +10,9 @@ namespace ServiceCenterReception.Service
         Task<ServiceDTO> getCustomerByMobileNo(long mobileNo);
 
         Task<ServiceDTOwithPagination> getAllCustomers(int pageNo, int pageSize);
+
+        Task<List<ServiceTaskMaster>> getAllTaskMaster();
+
+       // Task<bool> addCompletedTasks(List<ServiceCompletedTask> tasks);
     }
 }

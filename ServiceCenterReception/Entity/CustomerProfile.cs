@@ -16,7 +16,7 @@ namespace ServiceCenterReception.Entity
         public string? customerName { get; set; }
 
         [Required]
-        [Range(1, 99999999999, ErrorMessage = "Mobile Number Is Mandatory & Length must be 10")]
+        [Range(1, 9999999999, ErrorMessage = "Mobile Number Is Mandatory & Length must be 10")]
         public long mobileNumber { get; set; }
 
         public string? address { get; set; }

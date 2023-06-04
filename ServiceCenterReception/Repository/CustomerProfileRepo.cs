@@ -60,6 +60,21 @@ namespace ServiceCenterReception.Repository
             }
         }
 
+        public async Task<CustomerProfile> getCustomerByCustomerId(long customerId)
+        {
+            try
+            {
+                var result = await context.customerProfiles.Where(x =>
+                    x.customerId == customerId)
+                    .FirstOrDefaultAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<CustomerProfile>> getAllCustomers(int pageNo, int pageSize)
         {
             try
@@ -86,6 +101,30 @@ namespace ServiceCenterReception.Repository
             catch(Exception ex)
             {
                 return 0;
+            }
+        }
+
+        //public async Task<bool> addCompletedTasks(List<ServiceCompletedTask> tasks)
+        //{
+        //    try
+        //    {
+        //        context.serviceCompletedTasks.AddRange(tasks);
+        //        return true;
+        //    } catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        public async Task<List<ServiceTaskMaster>> getAllTaskMaster()
+        {
+            try
+            {
+                var result = await context.serviceTaskMasters.ToListAsync();
+                return result;
+            }catch (Exception ex)
+            {
+                return null;
             }
         }
     }
